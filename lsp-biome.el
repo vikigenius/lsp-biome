@@ -91,17 +91,8 @@ support projects that installed `biome'."
                     #'f-join
                     `(,broot ,@(split-string
                                 "node_modules/@biomejs/biome/bin/biome" "/"))))
-              ((lsp-biome--has-config-file))
               ((lsp-biome--file-can-be-activated filename)))
-    (setq lsp-biome--bin-path bin)
-    ;; Enploy `apheleia-mode' with a biome formatter if available
-    (when (bound-and-true-p apheleia-mode)
-      (unless (alist-get 'lsp-biome--formatter apheleia-formatters)
-        (push '(lsp-biome--formatter
-                . ("apheleia-npx" "biome" "format" "--stdin-file-path" filepath))
-              apheleia-formatters))
-      (setq-local apheleia-formatter '(lsp-biome--formatter)))
-    t))
+    (setq lsp-biome--bin-path bin) t))
 
 (lsp-make-interactive-code-action biome-organize-imports
                                   "source.organizeImports.biome")
